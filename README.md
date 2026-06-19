@@ -1,179 +1,308 @@
-Queen Smart Home IoT
+# 🏠 Queen Smart Home IoT
 
-Queen Smart Home IoT adalah sistem Smart Home berbasis ESP8266 (NodeMCU) dan MQTT yang memungkinkan pengguna mengontrol beberapa perangkat listrik secara real-time melalui dashboard web. Sistem ini dilengkapi dengan tampilan LCD, status perangkat, konektivitas WiFi, serta dirancang agar mudah dikembangkan untuk kebutuhan Smart Home yang lebih kompleks.
+Queen Smart Home IoT is a smart home system based on **ESP8266 (NodeMCU)** and **MQTT**, allowing users to control electrical devices in real time through a web dashboard. The system features LCD status display, WiFi connectivity, and is designed to be scalable for future smart home development.
 
-🚀 Fitur Utama
-✅ Kontrol Lampu melalui Web Dashboard
-✅ Kontrol Terminal/Kipas melalui Web Dashboard
-✅ Komunikasi Real-Time menggunakan MQTT
-✅ LCD I2C 16x2 sebagai display status sistem
-✅ Menampilkan status Lampu dan Terminal
-✅ Menampilkan status koneksi WiFi
-✅ Menampilkan jam real-time (NTP)
-✅ Auto reconnect WiFi dan MQTT
-✅ Multi Relay (4 Channel)
-✅ Dashboard berbasis React + Vite
-✅ Monitoring status perangkat secara real-time
-✅ Arsitektur modular sehingga mudah dikembangkan
-Arsitektur Sistem
-                    WEB DASHBOARD
-                    React + Vite
-                           │
-                    MQTT Publish/Subscribe
-                           │
-                   broker.hivemq.com
-                           │
-                    NodeMCU ESP8266
-                           │
-         ┌─────────────────┼──────────────────┐
-         │                 │                  │
-      Relay 1           Relay 2            LCD I2C
-      Lampu             Terminal          16x2 Display
-Hardware yang Digunakan
-Komponen	Jumlah
-NodeMCU ESP8266	1
-Relay Module 4 Channel	1
-LCD I2C 16x2	1
-PCB Matrix	1
-Kabel Jumper	Secukupnya
-Box/Casing	1
-Power Supply 5V	1
-Breadboard (Prototype)	1
-Software yang Digunakan
-Arduino IDE
-Visual Studio Code
-React + Vite
-MQTT.js
-PubSubClient
-LiquidCrystal_I2C
-NTPClient
-ESP8266WiFi
-HiveMQ Public Broker
-MQTT Topic
-Lampu
+---
+
+## 🚀 Features
+
+- ✅ Real-time device control using MQTT
+- ✅ Smart Lamp Control
+- ✅ Smart Terminal / Fan Control
+- ✅ LCD I2C 16x2 Status Display
+- ✅ WiFi Connection Monitoring
+- ✅ Real-Time Clock (NTP)
+- ✅ Automatic MQTT Reconnection
+- ✅ Automatic WiFi Reconnection
+- ✅ Multi Relay Support (4 Channel)
+- ✅ Web Dashboard (React + Vite)
+- ✅ Real-Time Device Monitoring
+- ✅ Modular and Scalable Architecture
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                 Web Dashboard
+                  React + Vite
+                        │
+                 MQTT Publish/Subscribe
+                        │
+                broker.hivemq.com
+                        │
+                  NodeMCU ESP8266
+                        │
+      ┌─────────────────┼─────────────────┐
+      │                 │                 │
+   Relay 1          Relay 2            LCD I2C
+ Smart Lamp      Smart Terminal         16x2
+```
+
+---
+
+# 📦 Hardware Components
+
+| Component | Quantity |
+|------------|----------|
+| NodeMCU ESP8266 | 1 |
+| Relay Module 4 Channel | 1 |
+| LCD I2C 16x2 | 1 |
+| PCB Matrix Board | 1 |
+| Jumper Wires | Several |
+| Plastic Enclosure | 1 |
+| Power Supply 5V | 1 |
+| Breadboard (Prototype) | 1 |
+
+---
+
+# 💻 Software & Libraries
+
+### Development Tools
+
+- Arduino IDE
+- Visual Studio Code
+- React + Vite
+
+### Arduino Libraries
+
+- ESP8266WiFi
+- PubSubClient
+- LiquidCrystal_I2C
+- NTPClient
+- WiFiUdp
+
+### Web Libraries
+
+- React
+- MQTT.js
+- TailwindCSS
+- React Router
+- Framer Motion
+
+---
+
+# 📡 MQTT Topics
+
+## Smart Lamp
+
+**Topic**
+
+```text
 queen/lampu
+```
 
-Payload:
+**Payload**
 
+```text
 ON
 OFF
-Terminal
+```
+
+---
+
+## Smart Terminal / Fan
+
+**Topic**
+
+```text
 queen/terminal
+```
 
-Payload:
+**Payload**
 
+```text
 ON
 OFF
-LCD Display
-Halaman 1
+```
+
+---
+
+# 🖥 LCD Display
+
+### Page 1
+
+```text
 Queen Smart
 System Ready
-Halaman 2
+```
+
+### Page 2
+
+```text
 L:ON T:OFF
 14:35 WiFi OK
+```
 
-Halaman berganti otomatis setiap 3 detik.
+LCD pages automatically change every 3 seconds.
 
-Struktur Project
-Queen-Smart-Home/
+---
+
+# 📂 Project Structure
+
+```bash
+Queen-Smart-Home
 │
-├── hardware/
+├── firmware
+│   └── QueenSmartHome.ino
+│
+├── web-dashboard
+│   ├── src
+│   │   ├── components
+│   │   ├── hooks
+│   │   ├── pages
+│   │   ├── services
+│   │   └── App.jsx
+│   │
+│   ├── public
+│   ├── package.json
+│   └── vite.config.js
+│
+├── hardware
 │   ├── NodeMCU ESP8266
-│   ├── Relay 4 Channel
-│   ├── LCD I2C 16x2
+│   ├── Relay 4CH
+│   ├── LCD I2C
 │   └── PCB Layout
 │
-├── firmware/
-│   ├── QueenSmartHome.ino
-│   └── library
-│
-├── web-dashboard/
-│   ├── src
-│   ├── components
-│   ├── pages
-│   ├── services
-│   ├── hooks
-│   └── mqttService.js
-│
-├── images/
+├── images
 ├── README.md
 └── LICENSE
-Cara Menjalankan
-1. Clone Repository
-git clone https://github.com/username/Queen-Smart-Home.git
-2. Install Dependencies
+```
+
+---
+
+# ⚙️ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/yourusername/Queen-Smart-Home.git
+```
+
+## Go to Project Directory
+
+```bash
+cd Queen-Smart-Home
+```
+
+## Install Dependencies
+
+```bash
 npm install
-3. Jalankan Dashboard
+```
+
+## Run Development Server
+
+```bash
 npm run dev
+```
 
-Dashboard akan berjalan di:
+Dashboard will be available at:
 
+```text
 http://localhost:5173
-Upload Firmware ESP8266
+```
 
-Buka:
+---
 
+# 🔌 Upload Firmware
+
+Open:
+
+```text
 firmware/QueenSmartHome.ino
+```
 
-Upload menggunakan Arduino IDE.
+Upload using Arduino IDE.
 
-Library yang diperlukan:
+---
 
-ESP8266WiFi
-PubSubClient
-LiquidCrystal_I2C
-NTPClient
-WiFiUdp
-Pengembangan Selanjutnya
-Monitoring Energi
+# 📈 Future Development
 
-Menggunakan:
+## 🔋 Energy Monitoring
 
-PZEM-004T V3
+Using:
 
-Menampilkan:
+- PZEM-004T V3
 
-Tegangan (Volt)
-Arus (Ampere)
-Daya (Watt)
-Energi (kWh)
-Sensor Lingkungan
-DHT11
-DHT22
+Features:
 
-Monitoring:
+- Voltage Monitoring
+- Current Monitoring
+- Power Monitoring
+- Energy Consumption (kWh)
 
-Suhu
-Kelembaban
-Sistem Otomatisasi
-Timer ON/OFF
-Scheduler
-Sunset/Sunrise Mode
-Kontrol Manual
+---
 
-Penambahan push button sehingga perangkat dapat dikontrol dari:
+## 🌡 Environmental Monitoring
 
-Web Dashboard
-Saklar Manual
+Using:
 
-Tanpa saling mengganggu.
+- DHT11
+- DHT22
 
-Integrasi Mobile
-Flutter
-React Native
-Integrasi Cloud
-HiveMQ Cloud
-Firebase
-Supabase
-Notifikasi
-Telegram Bot
-WhatsApp Notification
-Email Alert
-Monitoring Real-Time
-Grafik konsumsi daya
-Riwayat penggunaan
-Logging aktivitas perangkat
-Future Development
+Features:
+
+- Temperature Monitoring
+- Humidity Monitoring
+
+---
+
+## ⏰ Smart Automation
+
+- Timer ON/OFF
+- Scheduler
+- Sunrise & Sunset Mode
+
+---
+
+## 🎛 Manual Override
+
+Control devices from:
+
+- Web Dashboard
+- Physical Switch
+
+Without interrupting each other.
+
+---
+
+## 📱 Mobile Application
+
+Future support:
+
+- Flutter
+- React Native
+
+---
+
+## ☁ Cloud Integration
+
+- HiveMQ Cloud
+- Firebase
+- Supabase
+
+---
+
+## 🔔 Notification System
+
+- Telegram Bot
+- WhatsApp Notification
+- Email Alert
+
+---
+
+## 📊 Real-Time Monitoring
+
+- Device Logs
+- Energy Usage History
+- Activity Statistics
+
+---
+
+# 🚀 Roadmap
+
+```text
 Queen Smart Home V2
 │
 ├── Smart Lamp
@@ -186,20 +315,33 @@ Queen Smart Home V2
 ├── Mobile Application
 ├── Cloud Database
 └── AI Automation
-Author
+```
 
-Andi Setiawan
+---
 
+# 👨‍💻 Author
+
+**Andi Setiawan**
+
+Internet Engineering Technology Student  
 Politeknik Negeri Lampung
-Internet Engineering Technology
 
-Interests:
+### Interests
 
-IoT Development
-Network Engineer
-Cloud Computing
-Cyber Security
-Blue Team SOC
-License
+- IoT Development
+- Network Engineering
+- Cloud Computing
+- Cyber Security
+- Blue Team SOC
 
-This project is open source and available under the MIT License.
+---
+
+# ⭐ Support
+
+If you find this project useful, please consider giving it a **Star ⭐** on GitHub.
+
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
